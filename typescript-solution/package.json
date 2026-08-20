@@ -1,0 +1,22 @@
+{
+  "name": "duel-game-colete-online",
+  "version": "1.0.0",
+  "description": "Simulare duel turn-based pentru stagiul de practica",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "duel",
+    "simulation"
+  ],
+  "author": "Numele Tau",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.19.39",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}
