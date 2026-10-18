@@ -1,33 +1,39 @@
-import { IAbility, AbilityName } from './types';
+import { Ability } from './ability';
+import type { Character } from './character';
 
-export class PowerStrike implements IAbility {
-    name: AbilityName = 'Power Strike';
-    applyEffect(attacker: any, defender: any, damage: number): number {
-        return damage * 1.5; 
+// Fiecare abilitate moștenește Ability și suprascrie (override) un singur comportament.
+
+export class PowerStrike extends Ability {
+    readonly name = 'Power Strike' as const;
+
+    override onAttack(attacker: Character, damage: number): number {
+        return damage * 1.5;
     }
 }
 
-export class DamageReduction implements IAbility {
-    name: AbilityName = 'Damage Reduction';
-    applyEffect(attacker: any, defender: any, damage: number): number {
-        return damage * 0.5; 
+export class DamageReduction extends Ability {
+    readonly name = 'Damage Reduction' as const;
+
+    override onDefend(defender: Character, damage: number): number {
+        return damage * 0.5;
     }
 }
 
-export class SecondWind implements IAbility {
-    name: AbilityName = 'Second Wind';
-    applyEffect(attacker: any, defender: any, damage: number): number { return damage; }
-    applyPostDamageEffect(character: any): void {
-        if (character.health < 30 && character.health > 0) {
-            character.health += 5;
+export class SecondWind extends Ability {
+    readonly name = 'Second Wind' as const;
+
+    override afterHit(defender: Character): void {
+        if (defender.health < 30 && defender.isAlive()) {
+            defender.heal(5);
         }
     }
 }
 
-export class Vampirism implements IAbility {
-    name: AbilityName = 'Vampirism';
-    applyEffect(attacker: any, defender: any, damage: number): number {
-        attacker.health += 2;
+export class Vampirism extends Ability {
+    readonly name = 'Vampirism' as const;
+
+    override onAttack(attacker: Character, damage: number): number {
+        attacker.heal(2);
         return damage;
     }
 }
